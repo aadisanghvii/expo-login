@@ -1,11 +1,4 @@
 import {
-  Inter_400Regular,
-  Inter_600SemiBold,
-  useFonts,
-} from "@expo-google-fonts/inter"
-import * as Haptics from "expo-haptics"
-import { Formik } from "formik"
-import {
   Keyboard,
   Pressable,
   Text,
@@ -13,9 +6,17 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native"
+import {
+  Inter_400Regular,
+  Inter_600SemiBold,
+  useFonts,
+} from "@expo-google-fonts/inter"
+import * as Haptics from "expo-haptics"
+import { Formik } from "formik"
 
-import { getValueFor, save } from "../hooks/useStore"
 import { cn } from "../lib/utils"
+import { getValueFor, save } from "../hooks/useStore"
+
 import { loginSchema } from "./schemas/loginSchema"
 
 const onSubmit = (values, actions) => {

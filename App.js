@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
 import Home from "./components/Home"
 import Login from "./components/Login"
-import { getValueFor, save } from "./hooks/useStore"
 
 const Stack = createNativeStackNavigator()
 

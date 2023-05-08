@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
-import * as SecureStore from "expo-secure-store"
 import { SafeAreaView, Text } from "react-native"
+import * as SecureStore from "expo-secure-store"
+import { useEffect, useState } from "react"
 
 const Home = () => {
   const [login, setLogin] = useState({ username: "", password: "" })
