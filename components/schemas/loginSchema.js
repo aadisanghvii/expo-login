@@ -1,4 +1,4 @@
-import * as yup from "yup";
+import * as yup from "yup"
 
 /*
   - 1 number
@@ -16,4 +16,4 @@ export const loginSchema = yup.object().shape({
     .string()
     .min(8, ({ min }) => `Password must be at least ${min} characters`)
     .required("Password is required"),
-});
+})

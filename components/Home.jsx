@@ -1,29 +1,37 @@
-import { SafeAreaView, Text } from "react-native";
-import * as SecureStore from "expo-secure-store";
-
-import { useState } from "react";
+import { useEffect, useState } from "react"
+import * as SecureStore from "expo-secure-store"
+import { SafeAreaView, Text } from "react-native"
 
 const Home = () => {
-  const [result, setResult] = useState("");
+  const [login, setLogin] = useState({ username: "", password: "" })
 
   async function getValueFor(key) {
-    let result = await SecureStore.getItemAsync(key);
-    console.log(`Value for ${key}: ${result}`);
+    let username = await SecureStore.getItemAsync(key.username)
+    let password = await SecureStore.getItemAsync(key.password)
 
-    if (result) {
-      setResult(result);
+    console.log(`Value for ${key.username}: ${username}`)
+    console.log(`Value for ${key.password}: ${password}`)
+
+    if (username && password) {
+      setLogin({ username, password })
     } else {
-      console.error("No values stored under the key ", key);
+      console.error("No values stored under the keys ", key)
     }
   }
 
-  getValueFor("username");
+  useEffect(() => {
+    getValueFor({ username: "username", password: "password" })
+  }, [])
 
   return (
     <SafeAreaView>
-      <Text>{result}</Text>
+      <Text>
+        Username: {login.username}
+        {`\n`}
+        Password: {login.password}
+      </Text>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

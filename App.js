@@ -1,10 +1,11 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { save, getValueFor } from "./hooks/useStore";
-import Login from "./components/Login";
-import Home from "./components/Home";
+import { NavigationContainer } from "@react-navigation/native"
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
-const Stack = createNativeStackNavigator();
+import Home from "./components/Home"
+import Login from "./components/Login"
+import { getValueFor, save } from "./hooks/useStore"
+
+const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
@@ -22,5 +23,5 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
-  );
+  )
 }

@@ -1,47 +1,47 @@
 import {
-  Text,
-  TextInput,
-  Keyboard,
-  TouchableWithoutFeedback,
-  KeyboardAvoidingView,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { Formik } from "formik";
-import * as Haptics from "expo-haptics";
-import {
-  useFonts,
   Inter_400Regular,
   Inter_600SemiBold,
-} from "@expo-google-fonts/inter";
-import { loginSchema } from "./schemas/loginSchema";
-import { save, getValueFor } from "../hooks/useStore";
-import { useEffect } from "react";
+  useFonts,
+} from "@expo-google-fonts/inter"
+import * as Haptics from "expo-haptics"
+import { Formik } from "formik"
+import {
+  Keyboard,
+  Pressable,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native"
+
+import { getValueFor, save } from "../hooks/useStore"
+import { cn } from "../lib/utils"
+import { loginSchema } from "./schemas/loginSchema"
 
 const onSubmit = (values, actions) => {
-  actions.resetForm();
+  actions.resetForm()
 
-  save("username", values.username);
-  save("password", values.password);
+  save("username", values.username)
+  save("password", values.password)
 
-  getValueFor("username");
-  getValueFor("password");
-};
+  getValueFor("username")
+  getValueFor("password")
+}
 
 const LoginScreen = ({ navigation }) => {
   let [fontsLoaded] = useFonts({
     Inter_400Regular,
     Inter_600SemiBold,
-  });
+  })
 
   if (!fontsLoaded) {
-    return <Text>Loading...</Text>;
+    return <Text>Loading...</Text>
   }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <KeyboardAvoidingView
+      <View
         className="items-center justify-center min-h-screen align-middle bg-white/40"
-        behavior="height"
+        // behavior="height"
       >
         <Formik
           initialValues={{ username: "", password: "" }}
@@ -70,14 +70,20 @@ const LoginScreen = ({ navigation }) => {
                 style={{ fontFamily: "Inter_400Regular" }}
                 placeholder="Username"
                 placeholderTextColor={"#BCB8B1"}
-                className="items-center justify-center h-12 p-2 pt-0 m-2 text-lg align-middle bg-white shadow-sm rounded-xl w-72 text-tertiary focus:shadow-primary focus:shadow-md "
+                className={cn(
+                  "items-center justify-center h-12 p-2 pt-0 m-2 text-lg align-middle bg-white shadow-sm rounded-xl w-72 text-tertiary focus:shadow-primary focus:shadow-md ",
+                  errors.username &&
+                    touched.username &&
+                    values.username !== "" &&
+                    "border-accent border-[1px]"
+                )}
                 onChangeText={handleChange("username")}
                 onBlur={handleBlur("username")}
                 value={values.username}
                 keyboardType="number-pad"
                 keyboardAppearance="dark"
                 onFocus={() => {
-                  Haptics.selectionAsync();
+                  Haptics.selectionAsync()
                 }}
                 blurOnSubmit={true}
                 maxLength={6}
@@ -98,14 +104,20 @@ const LoginScreen = ({ navigation }) => {
                 style={{ fontFamily: "Inter_400Regular" }}
                 placeholder="Password"
                 placeholderTextColor={"#BCB8B1"}
-                className="items-center justify-center h-12 p-2 pt-0 m-2 text-lg align-middle bg-white shadow-sm rounded-xl w-72 border-tertiary text-tertiary focus:shadow-primary focus:shadow-md"
+                className={cn(
+                  "items-center justify-center h-12 p-2 pt-0 m-2 text-lg align-middle bg-white shadow-sm rounded-xl w-72 text-tertiary focus:shadow-primary focus:shadow-md ",
+                  errors.password &&
+                    touched.password &&
+                    values.password !== "" &&
+                    "border-accent border-[1px]"
+                )}
                 onChangeText={handleChange("password")}
                 onBlur={handleBlur("password")}
                 value={values.password}
                 secureTextEntry={true}
                 keyboardAppearance="dark"
                 onFocus={() => {
-                  Haptics.selectionAsync();
+                  Haptics.selectionAsync()
                 }}
                 blurOnSubmit={true}
                 returnKeyType="done"
@@ -124,15 +136,15 @@ const LoginScreen = ({ navigation }) => {
                   </Text>
                 )}
 
-              <TouchableOpacity
+              <Pressable
                 onPress={() => {
-                  handleSubmit();
+                  handleSubmit()
                   Haptics.notificationAsync(
                     Haptics.NotificationFeedbackType.Success
-                  );
-                  navigation.navigate("Home");
+                  )
+                  navigation.navigate("Home")
                 }}
-                className="justify-center h-12 p-2 m-2 shadow-md rounded-xl bg-accent w-72 disabled:opacity-30 shadow-accent/60 "
+                className="justify-center h-12 p-2 m-2 shadow-md rounded-xl bg-accent w-72 shadow-accent/60 "
                 disabled={
                   errors.username ||
                   errors.password ||
@@ -148,13 +160,13 @@ const LoginScreen = ({ navigation }) => {
                 >
                   SIGN IN
                 </Text>
-              </TouchableOpacity>
+              </Pressable>
             </>
           )}
         </Formik>
-      </KeyboardAvoidingView>
+      </View>
     </TouchableWithoutFeedback>
-  );
-};
+  )
+}
 
-export default LoginScreen;
+export default LoginScreen
